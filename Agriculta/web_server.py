@@ -5,6 +5,7 @@ import datetime
 import RPi.GPIO as GPIO
 from time import sleep
 from . import create_app
+import os
 
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
@@ -41,6 +42,15 @@ def clicked():
 def getSomeData():
     return "HELLO THIS IS A STRING BEING RETURN BECAUSE YOU CALLED THIS ROUTE"
 
+@home.route('/gitPull', methods=['GET'])
+def gitPull():
+    try:
+        command = os.popen('./gitPull.sh')
+        response = command.read()
+        return response , 200
+    except:
+        raise
+
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():
     now = datetime.datetime.now()
@@ -57,24 +67,13 @@ def activate_mister():
 def activate_fan():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    sleep(30)
+    sleep(15)
     app.logger.info("FAN - START: {} ".format(now))
     print("{} - Fan Started".format(now))
     
     GPIO.output(11, GPIO.LOW)
-    sleep(15)
+    sleep(duration)
     GPIO.output(11, GPIO.HIGH)
-    sleep(30)
-    GPIO.output(11, GPIO.LOW)
-    sleep(15)
-    GPIO.output(11, GPIO.HIGH)
-    sleep(30)
-    GPIO.output(11, GPIO.LOW)
-    sleep(15)
-    GPIO.output(11, GPIO.HIGH)
-    sleep(30)
-    GPIO.output(11, GPIO.LOW)
-    sleep(15)
-    GPIO.output(11, GPIO.HIGH)
+
     print("Fan Finished")
     app.logger.info("FAN - ENDED: {}".format(now))

@@ -64,6 +64,7 @@ def turnOnLight():
     GPIO.output(11, GPIO.HIGH)
     print("LIGHTS Finished")
     app.logger.info("LIGHTS - ENDED: {}".format(now))
+    return "success", 200
 
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():

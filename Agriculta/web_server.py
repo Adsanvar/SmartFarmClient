@@ -29,7 +29,7 @@ def index():
 @home.route('/', methods=['POST'])
 def clicked():
     if 'data' in request.form:
-        r = requests.get("https://witty-hound-43.loca.lt/getSomeData")
+        r = requests.get("https://agriculta.loca.lt/getSomeData")
         print(r.headers)
         print(r.status_code)
         print(r.content)
@@ -77,17 +77,17 @@ def activate_lights():
     print("LIGHTS Finished")
     app.logger.info("LIGHTS - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='fan', minutes=every)
-def activate_fan():
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    sleep(15)
-    app.logger.info("FAN - START: {} ".format(now))
-    print("{} - Fan Started".format(now))
+# @scheduler.task('interval', id='fan', minutes=every)
+# def activate_fan():
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     sleep(15)
+#     app.logger.info("FAN - START: {} ".format(now))
+#     print("{} - Fan Started".format(now))
     
-    GPIO.output(11, GPIO.LOW)
-    sleep(duration)
-    GPIO.output(11, GPIO.HIGH)
+#     GPIO.output(11, GPIO.LOW)
+#     sleep(duration)
+#     GPIO.output(11, GPIO.HIGH)
 
-    print("Fan Finished")
-    app.logger.info("FAN - ENDED: {}".format(now))
+#     print("Fan Finished")
+#     app.logger.info("FAN - ENDED: {}".format(now))

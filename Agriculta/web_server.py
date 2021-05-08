@@ -79,7 +79,7 @@ def gitPull():
 #     print("mister Finished")
 #     app.logger.info("MISTING - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='light', minute=1)
+@scheduler.task('interval', id='light', minutes=1)
 def activate_lights():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)

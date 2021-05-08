@@ -1,0 +1,6 @@
+Flask-APScheduler
+Flask
+Flask-Bcrypt
+Flask-Login
+Flask-SQLAlchemy
+bcrypt

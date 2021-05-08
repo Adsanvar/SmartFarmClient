@@ -13,11 +13,12 @@ scheduler.start()
 every=20
 day = 24
 duration = 180
-light_duration = 64800
+# light_duration = 64800 #ON
+light_duration_off = 14400 #OFF
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH)
-GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(11, GPIO.OUT, initial=GPIO.LOW)
+# GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH)
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
@@ -79,17 +80,18 @@ def gitPull():
 #     print("mister Finished")
 #     app.logger.info("MISTING - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='light', hours=day)
+@scheduler.task('interval', id='light', minutes=1)
 def activate_lights():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("LIGHTS - START: {} ".format(now))
-    print("{} - LIGHTS Started".format(now))
-    GPIO.output(11, GPIO.LOW)
-    sleep(light_duration)
+    app.logger.info("LIGHTS OFF - START: {} ".format(now))
+    print("{} - LIGHTS TURNED OFF".format(now))
     GPIO.output(11, GPIO.HIGH)
-    print("LIGHTS Finished")
-    app.logger.info("LIGHTS - ENDED: {}".format(now))
+    # sleep(light_duration_off)
+    sleep(30)
+    GPIO.output(11, GPIO.LOW)
+    print("LIGHTS OFF Finished")
+    app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
 # @scheduler.task('interval', id='fan', minutes=every)
 # def activate_fan():

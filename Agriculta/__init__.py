@@ -14,9 +14,9 @@ try:
         app.config['SECRET_KEY'] = 'test_secret_key'
         app.config['SCHEDULER_API_ENABLED'] = True
 
-        cmd = os.popen('lt --port 5005')
-        link = cmd.read()
-        print(link)
+        # cmd = os.popen('lt --port 5005')
+        # link = cmd.read()
+        # print(link)
         
         #blueprints for the pages and models - Adrian
         from Agriculta.web_server import home as h_bp

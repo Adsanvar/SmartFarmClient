@@ -11,7 +11,9 @@ home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
 every=20
+day = 24
 duration = 180
+light_duration = 64800
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH)
@@ -62,6 +64,18 @@ def activate_mister():
     GPIO.output(13, GPIO.HIGH)
     print("mister Finished")
     app.logger.info("MISTING - ENDED: {}".format(now))
+
+@scheduler.task('interval', id='light', hours=day)
+def activate_lights():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    app.logger.info("LIGHTS - START: {} ".format(now))
+    print("{} - LIGHTS Started".format(now))
+    GPIO.output(11, GPIO.LOW)
+    sleep(light_duration)
+    GPIO.output(11, GPIO.HIGH)
+    print("LIGHTS Finished")
+    app.logger.info("LIGHTS - ENDED: {}".format(now))
 
 @scheduler.task('interval', id='fan', minutes=every)
 def activate_fan():

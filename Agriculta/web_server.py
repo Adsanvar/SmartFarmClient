@@ -80,15 +80,15 @@ def gitPull():
 #     print("mister Finished")
 #     app.logger.info("MISTING - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='light', minutes=1)
+@scheduler.task('interval', id='light', hours=day)
 def activate_lights():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     app.logger.info("LIGHTS OFF - START: {} ".format(now))
     print("{} - LIGHTS TURNED OFF".format(now))
     GPIO.output(11, GPIO.HIGH)
-    # sleep(light_duration_off)
-    sleep(30)
+    sleep(light_duration_off)
+    # sleep(30)
     GPIO.output(11, GPIO.LOW)
     print("LIGHTS OFF Finished")
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))

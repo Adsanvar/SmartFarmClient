@@ -2,6 +2,7 @@ from flask import Flask
 import logging
 import datetime
 from pathlib import Path
+import os
 try:
     ##Creates the Flask Application with the configurations -Adrian
     def create_app():
@@ -12,6 +13,9 @@ try:
         #allows us to use Login Manager and other tools suchas Flash from flask_login - Adrian
         app.config['SECRET_KEY'] = 'test_secret_key'
         app.config['SCHEDULER_API_ENABLED'] = True
+
+        cmd = os.popen('lt --port 5005')
+        link = cmd.read()
         
         #blueprints for the pages and models - Adrian
         from Agriculta.web_server import home as h_bp

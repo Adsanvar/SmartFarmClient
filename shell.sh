@@ -1,4 +1,3 @@
-#!/bin/bash
 export FLASK_APP=Agriculta
 export FLASK_ENV=development
 export DEBUG=1

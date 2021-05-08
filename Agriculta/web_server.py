@@ -53,6 +53,18 @@ def gitPull():
     except:
         raise
 
+@home.route('/turnOnLight', methods=['GET'])
+def turnOnLight():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    app.logger.info("LIGHTS - START: {} ".format(now))
+    print("{} - LIGHTS Started".format(now))
+    GPIO.output(11, GPIO.LOW)
+    sleep(light_duration)
+    GPIO.output(11, GPIO.HIGH)
+    print("LIGHTS Finished")
+    app.logger.info("LIGHTS - ENDED: {}".format(now))
+
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():
     now = datetime.datetime.now()

@@ -57,6 +57,7 @@ def gitPull():
 def turnOnLight():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
+    print("from link")
     app.logger.info("LIGHTS - START: {} ".format(now))
     print("{} - LIGHTS Started".format(now))
     GPIO.output(11, GPIO.LOW)
@@ -66,29 +67,29 @@ def turnOnLight():
     app.logger.info("LIGHTS - ENDED: {}".format(now))
     return "success", 200
 
-@scheduler.task('interval', id='mist', minutes=every)
-def activate_mister():
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("MISTING - START: {} ".format(now))
-    print("{} - Mister Started".format(now))
-    GPIO.output(13, GPIO.LOW)
-    sleep(duration)
-    GPIO.output(13, GPIO.HIGH)
-    print("mister Finished")
-    app.logger.info("MISTING - ENDED: {}".format(now))
+# @scheduler.task('interval', id='mist', minutes=every)
+# def activate_mister():
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     app.logger.info("MISTING - START: {} ".format(now))
+#     print("{} - Mister Started".format(now))
+#     GPIO.output(13, GPIO.LOW)
+#     sleep(duration)
+#     GPIO.output(13, GPIO.HIGH)
+#     print("mister Finished")
+#     app.logger.info("MISTING - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='light', hours=day)
-def activate_lights():
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("LIGHTS - START: {} ".format(now))
-    print("{} - LIGHTS Started".format(now))
-    GPIO.output(11, GPIO.LOW)
-    sleep(light_duration)
-    GPIO.output(11, GPIO.HIGH)
-    print("LIGHTS Finished")
-    app.logger.info("LIGHTS - ENDED: {}".format(now))
+# @scheduler.task('interval', id='light', hours=day)
+# def activate_lights():
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     app.logger.info("LIGHTS - START: {} ".format(now))
+#     print("{} - LIGHTS Started".format(now))
+#     GPIO.output(11, GPIO.LOW)
+#     sleep(light_duration)
+#     GPIO.output(11, GPIO.HIGH)
+#     print("LIGHTS Finished")
+#     app.logger.info("LIGHTS - ENDED: {}".format(now))
 
 # @scheduler.task('interval', id='fan', minutes=every)
 # def activate_fan():

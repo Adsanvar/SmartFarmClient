@@ -61,8 +61,10 @@ def turnOnLight():
     app.logger.info("LIGHTS - START: {} ".format(now))
     print("{} - LIGHTS Started".format(now))
     GPIO.output(11, GPIO.LOW)
-    sleep(30)
+    GPIO.setup(13, GPIO.LOW)
+    sleep(5)
     GPIO.output(11, GPIO.HIGH)
+    GPIO.output(13, GPIO.LOW)
     print("LIGHTS Finished")
     app.logger.info("LIGHTS - ENDED: {}".format(now))
     return "success", 200

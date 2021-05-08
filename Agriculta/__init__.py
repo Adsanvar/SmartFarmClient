@@ -16,6 +16,7 @@ try:
 
         cmd = os.popen('lt --port 5005')
         link = cmd.read()
+        print(link)
         
         #blueprints for the pages and models - Adrian
         from Agriculta.web_server import home as h_bp

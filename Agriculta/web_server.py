@@ -48,7 +48,8 @@ def getSomeData():
 @home.route('/gitPull', methods=['GET'])
 def gitPull():
     try:
-        command = os.popen('./gitPull.sh')
+        # command = os.popen('./~/Documents/SmartFarmClient/gitPull.sh')
+        command = os.popen('pwd')
         response = command.read()
         return response , 200
     except:

@@ -59,6 +59,11 @@ def logs():
     response = command.read()
     return response , 200
 
+@home.route('/test', methods=['GET'])
+def test():
+    os.system('lt --port 5005 --subdomain agriculta')
+    return "success"
+
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():
 #     now = datetime.datetime.now()

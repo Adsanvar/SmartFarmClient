@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for
+from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for, send_file
 import requests
 from flask_apscheduler import APScheduler
 import datetime
@@ -58,11 +58,12 @@ def logs():
     command = os.popen('ls logs')
     response = command.read()
     return response , 200
-@home.route('/catLog/<file>', methods=['GET'])
+@home.route('/getLog/<file>', methods=['GET'])
 def catLog(file):
-    command = os.popen('cat logs/{}'.format(file))
-    response = command.read()
-    return response , 200
+    
+    # command = os.popen('cat logs/{}'.format(file))
+    # response = command.read()
+    return send_file("logs/{}".format(file), as_attachment=True)
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():
 #     now = datetime.datetime.now()

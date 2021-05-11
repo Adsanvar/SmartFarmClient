@@ -63,7 +63,7 @@ def catLog(file):
     
     # command = os.popen('cat logs/{}'.format(file))
     # response = command.read()
-    return send_file("/{}".format(file), as_attachment=True)
+    return send_file("logs/{}".format(file), as_attachment=True)
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():
 #     now = datetime.datetime.now()

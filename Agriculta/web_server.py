@@ -58,13 +58,7 @@ def logs():
     command = os.popen('ls logs')
     response = command.read()
     return response , 200
-@home.route('/getLog/<file>', methods=['GET'])
-def catLog(file):
-    
-    # command = os.popen('cat logs/{}'.format(file))
-    command = os.popen('pwd')
-    response = command.read()
-    return response + send_file("{}".format(file), as_attachment=True)
+
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():
 #     now = datetime.datetime.now()

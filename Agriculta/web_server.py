@@ -55,7 +55,7 @@ def gitPull():
         raise
 @home.route('/logs', methods=['GET'])
 def logs():
-    command = os.popen('ls /logs/')
+    command = os.popen('cat /logs/')
     response = command.read()
     return response , 200
 

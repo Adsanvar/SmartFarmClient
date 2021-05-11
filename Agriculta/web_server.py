@@ -53,6 +53,11 @@ def gitPull():
         return response , 200
     except:
         raise
+@home.route('/logs', methods=['GET'])
+def logs():
+    command = os.popen('ls')
+    response = command.read()
+    return response , 200
 
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():

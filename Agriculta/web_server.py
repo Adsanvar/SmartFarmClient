@@ -12,13 +12,14 @@ scheduler = APScheduler()
 scheduler.start()
 every=20
 day = 24
-duration = 180
+duration = 600
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11, GPIO.OUT, initial=GPIO.LOW)
-# GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH)
+# GPIO.setup(11, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH)
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
@@ -60,10 +61,10 @@ def logs():
     response = command.read()
     return response , 200
 
-@home.route('/test', methods=['GET'])
-def test():
-    os.system('lt --port 5005 --subdomain agriculta')
-    return "success"
+# @home.route('/test', methods=['GET'])
+# def test():
+#     os.system('lt --port 5005 --subdomain agriculta')
+#     return "success"
 
 # @home.route('/turnOnLight', methods=['GET'])
 # def turnOnLight():
@@ -79,42 +80,42 @@ def test():
 #     app.logger.info("LIGHTS - ENDED: {}".format(now))
 #     return "success", 200
 
-# @scheduler.task('interval', id='mist', minutes=every)
-# def activate_mister():
+# @scheduler.task('interval', id='light', hours=day)
+# def activate_lights():
 #     now = datetime.datetime.now()
 #     # delta = now + datetime.timedelta(minutes = 1)
-#     app.logger.info("MISTING - START: {} ".format(now))
-#     print("{} - Mister Started".format(now))
-#     GPIO.output(13, GPIO.LOW)
-#     sleep(duration)
-#     GPIO.output(13, GPIO.HIGH)
-#     print("mister Finished")
-#     app.logger.info("MISTING - ENDED: {}".format(now))
+#     app.logger.info("LIGHTS OFF - START: {} ".format(now))
+#     print("{} - LIGHTS TURNED OFF".format(now))
+#     GPIO.output(11, GPIO.HIGH)
+#     sleep(light_duration_off)
+#     # sleep(30)
+#     GPIO.output(11, GPIO.LOW)
+#     print("LIGHTS OFF Finished")
+#     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='light', hours=day)
-def activate_lights():
+@scheduler.task('interval', id='mist', minutes=every)
+def activate_mister():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("LIGHTS OFF - START: {} ".format(now))
-    print("{} - LIGHTS TURNED OFF".format(now))
-    GPIO.output(11, GPIO.HIGH)
-    sleep(light_duration_off)
-    # sleep(30)
-    GPIO.output(11, GPIO.LOW)
-    print("LIGHTS OFF Finished")
-    app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
+    app.logger.info("MISTING - START: {} ".format(now))
+    print("{} - Mister Started".format(now))
+    GPIO.output(13, GPIO.LOW)
+    sleep(duration)
+    GPIO.output(13, GPIO.HIGH)
+    print("mister Finished")
+    app.logger.info("MISTING - ENDED: {}".format(now))
 
-# @scheduler.task('interval', id='fan', minutes=every)
-# def activate_fan():
-#     now = datetime.datetime.now()
-#     # delta = now + datetime.timedelta(minutes = 1)
-#     sleep(15)
-#     app.logger.info("FAN - START: {} ".format(now))
-#     print("{} - Fan Started".format(now))
+@scheduler.task('interval', id='fan', minutes=every)
+def activate_fan():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    sleep(15)
+    app.logger.info("FAN - START: {} ".format(now))
+    print("{} - Fan Started".format(now))
     
-#     GPIO.output(11, GPIO.LOW)
-#     sleep(duration)
-#     GPIO.output(11, GPIO.HIGH)
+    GPIO.output(11, GPIO.LOW)
+    sleep(duration+20)
+    GPIO.output(11, GPIO.HIGH)
 
-#     print("Fan Finished")
-#     app.logger.info("FAN - ENDED: {}".format(now))
+    print("Fan Finished")
+    app.logger.info("FAN - ENDED: {}".format(now))

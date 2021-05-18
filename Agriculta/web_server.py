@@ -12,12 +12,13 @@ scheduler = APScheduler()
 scheduler.start()
 every=2
 day = 24
-duration = 600
+duration = 1
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
-# GPIO.setup(11, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(18, GPIO.OUT, initial=GPIO.HIGH)
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH)
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH)
 
@@ -80,16 +81,29 @@ def logs():
 #     app.logger.info("LIGHTS - ENDED: {}".format(now))
 #     return "success", 200
 
-# @scheduler.task('interval', id='light', hours=day)
+@scheduler.task('interval', id='light', minutes=1)
+def activate_lights():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    app.logger.info("LIGHTS OFF - START: {} ".format(now))
+    print("{} - LIGHTS TURNED OFF".format(now))
+    GPIO.output(16, GPIO.HIGH)
+    # sleep(light_duration_off)
+    sleep(30)
+    GPIO.output(11, GPIO.LOW)
+    print("LIGHTS OFF Finished")
+    app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
+
+# @scheduler.task('interval', id='exhaust_fan', hours=day)
 # def activate_lights():
 #     now = datetime.datetime.now()
 #     # delta = now + datetime.timedelta(minutes = 1)
 #     app.logger.info("LIGHTS OFF - START: {} ".format(now))
 #     print("{} - LIGHTS TURNED OFF".format(now))
-#     GPIO.output(11, GPIO.HIGH)
+#     GPIO.output(18, GPIO.HIGH)
 #     sleep(light_duration_off)
 #     # sleep(30)
-#     GPIO.output(11, GPIO.LOW)
+#     GPIO.output(18, GPIO.LOW)
 #     print("LIGHTS OFF Finished")
 #     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 

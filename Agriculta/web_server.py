@@ -19,7 +19,7 @@ fan_duration_off = 21600 #OFF
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
-GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
+GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
@@ -89,10 +89,10 @@ def activate_lights():
     # delta = now + datetime.timedelta(minutes = 1)
     app.logger.info("LIGHTS OFF - START: {} ".format(now))
     print("{} - LIGHTS TURNED OFF".format(now))
-    GPIO.output(18, GPIO.HIGH)
-    # sleep(light_duration_off)
-    sleep(30)
-    GPIO.output(18, GPIO.LOW)
+    GPIO.output(15, GPIO.HIGH)
+    sleep(light_duration_off)
+    # sleep(30)
+    GPIO.output(15, GPIO.LOW)
     print("LIGHTS OFF Finished")
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 

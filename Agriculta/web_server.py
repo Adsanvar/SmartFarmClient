@@ -84,6 +84,7 @@ def logs():
 
 @scheduler.task('interval', id='light', hours=day)
 def activate_lights():
+    print("lights on")
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     app.logger.info("LIGHTS OFF - START: {} ".format(now))
@@ -96,7 +97,8 @@ def activate_lights():
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
 @scheduler.task('interval', id='exhaust_fan', hours=day)
-def activate_lights():
+def activate_exhaust():
+    print("exhuast on")
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     app.logger.info("EXHAUST OFF - START: {} ".format(now))

@@ -10,7 +10,7 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=20
+every=2
 day = 24
 duration = 600
 # light_duration = 64800 #ON

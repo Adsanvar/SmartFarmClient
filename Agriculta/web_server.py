@@ -75,6 +75,20 @@ def logs():
     response = command.read()
     return response , 200
 
+# def gen():
+#     # """Video streaming generator function."""
+#     while True:
+#         rval, frame = vc.read()
+#         cv2.imwrite('t.jpg', frame)
+#         yield (b'--frame\r\n'
+#                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
+
+@home.route('/videoFeed', methods=['GET'])
+def videoFeed():
+    # """Video streaming route. Put this in the src attribute of an img tag."""
+    # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return 'success'
+
 # @home.route('/test', methods=['GET'])
 # def test():
 #     os.system('lt --port 5005 --subdomain agriculta')
@@ -148,19 +162,4 @@ def activate_fan():
 
     print("Fan Finished")
     app.logger.info("FAN - ENDED: {}".format(now))
-
-def gen():
-    # """Video streaming generator function."""
-    while True:
-        rval, frame = vc.read()
-        cv2.imwrite('t.jpg', frame)
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
-
-
-@home.route('/videoFeed', methods=['GET'])
-def videoFeed():
-    # """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
 

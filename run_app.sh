@@ -1,4 +1,3 @@
-
 timer=5
 
 echo "Application will start in: "

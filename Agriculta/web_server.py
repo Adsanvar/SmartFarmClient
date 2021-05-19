@@ -6,10 +6,10 @@ import RPi.GPIO as GPIO
 from time import sleep
 from . import create_app
 import os
-import picamera
-import cv2
-import io
-import socket
+# import picamera
+# import cv2
+# import io
+# import socket
 
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
@@ -21,7 +21,7 @@ duration = 300
 light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
-vc = cv2.VideoCapture(0) 
+# vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
@@ -44,14 +44,14 @@ def clicked():
         print(r.content)
         flash('Data Retrieved', 'success')
         return render_template('index.html')
-    elif 'login' in request.form:
-        usr = request.form.get('username')
-        pas = request.form.get('password')
-        if usr == 'admin' and pas == 'admin':
-            return render_template('stream.html')
-        else:
-            flash('Invalid Credentials', 'error')
-            return render_template('index.html')
+    # elif 'login' in request.form:
+    #     usr = request.form.get('username')
+    #     pas = request.form.get('password')
+    #     if usr == 'admin' and pas == 'admin':
+    #         return render_template('stream.html')
+    #     else:
+    #         flash('Invalid Credentials', 'error')
+    #         return render_template('index.html')
     else:
         flash('Password Successfully Changed', 'success')
         return render_template('index.html')
@@ -91,19 +91,19 @@ def logs():
 #     os.system('lt --port 5005 --subdomain agriculta')
 #     return "success"
 
-# @home.route('/turnOnLight', methods=['GET'])
-# def turnOnLight():
-#     now = datetime.datetime.now()
-#     # delta = now + datetime.timedelta(minutes = 1)
-#     print("from link")
-#     app.logger.info("LIGHTS - START: {} ".format(now))
-#     print("{} - LIGHTS Started".format(now))
-#     GPIO.output(11, GPIO.LOW)
-#     sleep(20)
-#     GPIO.output(11, GPIO.HIGH)
-#     print("LIGHTS Finished")
-#     app.logger.info("LIGHTS - ENDED: {}".format(now))
-#     return "success", 200
+@home.route('/turnOnFan', methods=['GET'])
+def turnOnFan():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    print("from link")
+    # app.logger.info("LIGHTS - START: {} ".format(now))
+    print("{} - FAN Started".format(now))
+    GPIO.output(15, GPIO.LOW)
+    sleep(20)
+    GPIO.output(15, GPIO.HIGH)
+    print("FAN Finished")
+    # app.logger.info("LIGHTS - ENDED: {}".format(now))
+    return "success", 200
 
 @scheduler.task('interval', id='light', hours=day)
 def activate_lights():

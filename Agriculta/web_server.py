@@ -87,7 +87,7 @@ def logs():
 def videoFeed():
     # """Video streaming route. Put this in the src attribute of an img tag."""
     # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return 'success'
+    return "HELLO THIS IS A STRING BEING RETURN BECAUSE YOU CALLED THIS ROUTE"
 
 # @home.route('/test', methods=['GET'])
 # def test():

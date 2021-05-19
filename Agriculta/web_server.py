@@ -91,17 +91,23 @@ def logs():
 #     os.system('lt --port 5005 --subdomain agriculta')
 #     return "success"
 
-@home.route('/turnOnFan', methods=['GET'])
+@home.route('/turnOnTest', methods=['GET'])
 def turnOnFan():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     print("from link")
     # app.logger.info("LIGHTS - START: {} ".format(now))
-    print("{} - FAN Started".format(now))
-    GPIO.output(15, GPIO.LOW)
-    sleep(20)
+    print("{} - Test Started".format(now))
     GPIO.output(15, GPIO.HIGH)
-    print("FAN Finished")
+    GPIO.output(16, GPIO.HIGH)
+    GPIO.output(11, GPIO.HIGH)
+    GPIO.output(13, GPIO.HIGH)
+    sleep(10)
+    GPIO.output(15, GPIO.LOW)
+    GPIO.output(16, GPIO.LOW)
+    GPIO.output(11, GPIO.LOW)
+    GPIO.output(13, GPIO.LOW)
+    print("{} - Test Finished".format(now))
     # app.logger.info("LIGHTS - ENDED: {}".format(now))
     return "success", 200
 

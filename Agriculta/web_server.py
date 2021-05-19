@@ -22,7 +22,6 @@ light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
 # vc = cv2.VideoCapture(0) 
-GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
 # GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 # GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
@@ -119,6 +118,7 @@ def turnOnFan():
     print("11 - LOW")
     GPIO.output(13, GPIO.LOW)
     print("13 - LOW")
+    GPIO.cleanup()
     print("{} - Test Finished".format(now))
     # app.logger.info("LIGHTS - ENDED: {}".format(now))
     return "success", 200

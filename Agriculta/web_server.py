@@ -75,16 +75,16 @@ def logs():
     response = command.read()
     return response , 200
 
-def gen():
-    while True:
-        rval, frame = vc.read()
-        cv2.imwrite('t.jpg', frame)
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
+# def gen():
+#     while True:
+#         rval, frame = vc.read()
+#         cv2.imwrite('t.jpg', frame)
+#         yield (b'--frame\r\n'
+#                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-@home.route('/videoFeed', methods=['GET'])
-def videoFeed():
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+# @home.route('/videoFeed', methods=['GET'])
+# def videoFeed():
+#     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # @home.route('/test', methods=['GET'])
 # def test():

@@ -158,7 +158,7 @@ def gen():
                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
 
-@app.route('/video_feed')
+@app.route('/video_feed', methods=['GET'])
 def video_feed():
     # """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(),

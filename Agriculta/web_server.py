@@ -12,7 +12,7 @@ scheduler = APScheduler()
 scheduler.start()
 every=20
 day = 24
-duration = 600
+duration = 300
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF

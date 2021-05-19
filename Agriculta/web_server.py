@@ -76,18 +76,16 @@ def logs():
     return response , 200
 
 # def gen():
-#     # """Video streaming generator function."""
 #     while True:
 #         rval, frame = vc.read()
 #         cv2.imwrite('t.jpg', frame)
 #         yield (b'--frame\r\n'
 #                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-@home.route('/videoFeed', methods=['GET'])
-def videoFeed():
-    # """Video streaming route. Put this in the src attribute of an img tag."""
-    # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return "HELLO THIS IS A STRING BEING RETURN BECAUSE YOU CALLED THIS ROUTE"
+# @home.route('/videoFeed', methods=['GET'])
+# def videoFeed():
+#     # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+#     return "HELLO THIS IS A STRING BEING RETURN BECAUSE YOU CALLED THIS ROUTE"
 
 # @home.route('/test', methods=['GET'])
 # def test():

@@ -21,7 +21,7 @@ duration = 300
 light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
-# vc = cv2.VideoCapture(0) 
+vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
@@ -30,7 +30,7 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
-#This Route is the index page (landing page) -Adrian
+#This Route is the index page (landing page)
 @home.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -48,7 +48,7 @@ def clicked():
         usr = request.form.get('username')
         pas = request.form.get('password')
         if usr == 'admin' and pas == 'admin':
-            render_template('stream.html')
+            return render_template('stream.html')
         else:
             flash('Invalid Credentials', 'error')
             return render_template('index.html')
@@ -75,17 +75,16 @@ def logs():
     response = command.read()
     return response , 200
 
-# def gen():
-#     while True:
-#         rval, frame = vc.read()
-#         cv2.imwrite('t.jpg', frame)
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
+def gen():
+    while True:
+        rval, frame = vc.read()
+        cv2.imwrite('t.jpg', frame)
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-# @home.route('/videoFeed', methods=['GET'])
-# def videoFeed():
-#     # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-#     return "HELLO THIS IS A STRING BEING RETURN BECAUSE YOU CALLED THIS ROUTE"
+@home.route('/videoFeed', methods=['GET'])
+def videoFeed():
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # @home.route('/test', methods=['GET'])
 # def test():

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for, send_file
+from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for, send_file, Response
 import requests
 from flask_apscheduler import APScheduler
 import datetime
@@ -6,8 +6,13 @@ import RPi.GPIO as GPIO
 from time import sleep
 from . import create_app
 import os
+import picamera
+import cv2
+import io
+import socket
 
 home = Blueprint('home', __name__)
+vc = cv2.VideoCapture(0) 
 scheduler = APScheduler()
 scheduler.start()
 every=20
@@ -18,7 +23,7 @@ light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
 GPIO.setmode(GPIO.BOARD)
-# GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
+GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
@@ -39,7 +44,14 @@ def clicked():
         print(r.content)
         flash('Data Retrieved', 'success')
         return render_template('index.html')
-
+    elif 'login' in request.form:
+        usr = request.form.get('username')
+        pas = request.form.get('password')
+        if usr == 'admin' and pas == 'admin':
+            render_template('stream.html')
+        else:
+            flash('Invalid Credentials', 'error')
+            return render_template('index.html')
     else:
         flash('Password Successfully Changed', 'success')
         return render_template('index.html')
@@ -136,3 +148,19 @@ def activate_fan():
 
     print("Fan Finished")
     app.logger.info("FAN - ENDED: {}".format(now))
+
+def gen():
+    """Video streaming generator function."""
+    while True:
+        rval, frame = vc.read()
+        cv2.imwrite('t.jpg', frame)
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+

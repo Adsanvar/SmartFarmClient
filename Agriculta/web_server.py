@@ -118,7 +118,6 @@ def turnOnFan():
     print("11 - LOW")
     GPIO.output(13, GPIO.LOW)
     print("13 - LOW")
-    GPIO.cleanup()
     print("{} - Test Finished".format(now))
     # app.logger.info("LIGHTS - ENDED: {}".format(now))
     return "success", 200

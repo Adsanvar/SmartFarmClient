@@ -12,7 +12,6 @@ import io
 import socket
 
 home = Blueprint('home', __name__)
-# vc = cv2.VideoCapture(0) 
 scheduler = APScheduler()
 scheduler.start()
 every=20
@@ -22,6 +21,7 @@ duration = 300
 light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
+vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS

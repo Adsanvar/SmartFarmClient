@@ -83,11 +83,11 @@ def logs():
 #         yield (b'--frame\r\n'
 #                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-# @home.route('/videoFeed', methods=['GET'])
-# def videoFeed():
-#     # """Video streaming route. Put this in the src attribute of an img tag."""
-#     # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-#     return 'success'
+@home.route('/videoFeed', methods=['GET'])
+def videoFeed():
+    # """Video streaming route. Put this in the src attribute of an img tag."""
+    # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return 'success'
 
 # @home.route('/test', methods=['GET'])
 # def test():

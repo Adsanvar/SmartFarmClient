@@ -6,10 +6,10 @@ import RPi.GPIO as GPIO
 from time import sleep
 from . import create_app
 import os
-# import picamera
-# import cv2
-# import io
-# import socket
+import picamera
+import cv2
+import io
+import socket
 
 home = Blueprint('home', __name__)
 # vc = cv2.VideoCapture(0) 

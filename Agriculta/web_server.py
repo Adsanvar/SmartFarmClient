@@ -82,7 +82,7 @@ def gen():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-@home.route('/videoFeed')
+@home.route('/videoFeed', methods=['GET'])
 def videoFeed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 

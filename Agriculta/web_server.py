@@ -21,7 +21,7 @@ duration = 300
 light_duration_off = 14400 #OFF
 fan_duration_off = 21600 #OFF
 app = create_app()
-vc = cv2.VideoCapture(0) 
+# vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
@@ -83,11 +83,11 @@ def logs():
 #         yield (b'--frame\r\n'
 #                b'Content-Type: image/jpeg\r\n\r\n' + open('t.jpg', 'rb').read() + b'\r\n')
 
-@home.route('/videoFeed', methods=['GET'])
-def videoFeed():
-    # """Video streaming route. Put this in the src attribute of an img tag."""
-    # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return 'success'
+# @home.route('/videoFeed', methods=['GET'])
+# def videoFeed():
+#     # """Video streaming route. Put this in the src attribute of an img tag."""
+#     # return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+#     return 'success'
 
 # @home.route('/test', methods=['GET'])
 # def test():

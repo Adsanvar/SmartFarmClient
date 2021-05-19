@@ -12,4 +12,5 @@ export DEBUG=1
 export FLASK_RUN_PORT=5005
 
 # lxterminal -e bash --c "lt --port 5005 --subdomain agriculta"
-flask run
+# flask run
+flask run -h 192.168.1.109

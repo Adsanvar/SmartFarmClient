@@ -1,5 +1,5 @@
 
-timer=15
+timer=5
 
 echo "Application will start in: "
 while (($timer !=0))

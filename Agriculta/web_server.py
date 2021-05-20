@@ -17,7 +17,6 @@ scheduler.start()
 every=15
 day = 24
 duration = 300
-print("INITIALIZED")
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 fan_duration_on = 7200 #ON
@@ -31,6 +30,9 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
+
+print(scheduler.get_jobs())
+
 #This Route is the index page (landing page)
 @home.route('/', methods=['GET'])
 def index():

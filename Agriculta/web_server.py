@@ -19,11 +19,11 @@ day = 24
 duration = 180
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
-fan_duration_off = 79200 #OFF
+fan_duration_on = 7200 #ON
 app = create_app()
 # vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
+GPIO.setup(18, GPIO.OUT, initial=GPIO.HIGH) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
@@ -138,14 +138,14 @@ def activate_exhaust():
     print("exhuast on")
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("EXHAUST OFF - START: {} ".format(now))
-    print("{} - EXHAUST TURNED OFF".format(now))
-    GPIO.output(15, GPIO.HIGH)
-    sleep(fan_duration_off)
+    app.logger.info("EXHAUST ON - START: {} ".format(now))
+    print("{} - EXHAUST TURNED ON".format(now))
+    GPIO.output(18, GPIO.LOW)
+    sleep(fan_duration_on)
     # sleep(30)
-    GPIO.output(15, GPIO.LOW)
-    print("EXHAUST OFF Finished")
-    app.logger.info("EXHAUST OFF - ENDED: {}".format(now))
+    GPIO.output(18, GPIO.HIGH)
+    print("EXHAUST ON Finished")
+    app.logger.info("EXHAUST ON - ENDED: {}".format(now))
 
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():

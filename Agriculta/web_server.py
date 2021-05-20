@@ -165,7 +165,7 @@ def activate_mister():
 def activate_fan():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    sleep(15)
+    # sleep(15)
     app.logger.info("FAN - START: {} ".format(now))
     print("{} - FAN Started".format(now))
     

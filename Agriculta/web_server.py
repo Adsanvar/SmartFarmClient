@@ -162,8 +162,6 @@ def activate_mister():
 
 @scheduler.task('interval', id='fan', minutes=every)
 def activate_fan():
-    print(scheduler.get_jobs())
-    scheduler.print_jobs()
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     sleep(15)

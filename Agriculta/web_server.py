@@ -15,7 +15,8 @@ home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
 every=15
-day = 24
+light_hours = 18
+every_fan_hours = 22
 duration = 300
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
@@ -31,7 +32,7 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
 
-print(scheduler.get_jobs())
+print(scheduler.print_jobs())
 
 #This Route is the index page (landing page)
 @home.route('/', methods=['GET'])
@@ -122,9 +123,8 @@ def logs():
 #     # app.logger.info("LIGHTS - ENDED: {}".format(now))
 #     return "success", 200
 
-@scheduler.task('interval', id='light', hours=day)
+@scheduler.task('interval', id='light', hours=light_hours)
 def activate_lights():
-    print("lights on")
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     app.logger.info("LIGHTS OFF - START: {} ".format(now))
@@ -136,7 +136,7 @@ def activate_lights():
     print("LIGHTS OFF Finished")
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='exhaust_fan', hours=day)
+@scheduler.task('interval', id='exhaust_fan', hours=every_fan_hours)
 def activate_exhaust():
     print("exhuast on")
     now = datetime.datetime.now()
@@ -165,6 +165,7 @@ def activate_mister():
 @scheduler.task('interval', id='fan', minutes=every)
 def activate_fan():
     print(scheduler.get_jobs())
+    scheduler.print_jobs()
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
     sleep(15)

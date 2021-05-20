@@ -14,11 +14,10 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=1
+every=15
 light_hours = 18
 every_fan_hours = 22
-# duration = 300
-duration = 30
+duration = 300
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 fan_duration_on = 7200 #ON
@@ -165,7 +164,7 @@ def activate_mister():
 def activate_fan():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    # sleep(15)
+    sleep(15)
     app.logger.info("FAN - START: {} ".format(now))
     print("{} - FAN Started".format(now))
     

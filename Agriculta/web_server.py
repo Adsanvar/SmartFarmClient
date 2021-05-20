@@ -32,8 +32,6 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)
 
-print(scheduler.print_jobs())
-
 #This Route is the index page (landing page)
 @home.route('/', methods=['GET'])
 def index():

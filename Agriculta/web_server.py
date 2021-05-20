@@ -19,7 +19,7 @@ day = 24
 duration = 180
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
-fan_duration_off = 21600 #OFF
+fan_duration_off = 79200 #OFF
 app = create_app()
 # vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)

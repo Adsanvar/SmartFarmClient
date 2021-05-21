@@ -17,7 +17,7 @@ scheduler.start()
 every=3
 light_hours = 18
 every_fan_hours = 22
-duration = 10
+duration = 20
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 fan_duration_on = 7200 #ON
@@ -169,7 +169,7 @@ def activate_fan():
     print("{} - FAN Started".format(now))
     
     GPIO.output(11, GPIO.LOW)
-    sleep(duration+10)
+    sleep(duration+15)
     GPIO.output(11, GPIO.HIGH)
 
     print("Fan Finished")

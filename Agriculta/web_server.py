@@ -15,16 +15,17 @@ home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
 every=3
-light_hours = 18
-every_fan_hours = 22
+# light_hours = 24
+# every_fan_hours = 22
+every_day = 24
 duration = 20
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
-fan_duration_on = 7200 #ON
+fan_duration_off = 14400 #OFF
 app = create_app()
 # vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(18, GPIO.OUT, initial=GPIO.HIGH) # EXHAUST FAN
+GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
 GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
@@ -121,7 +122,7 @@ def logs():
 #     # app.logger.info("LIGHTS - ENDED: {}".format(now))
 #     return "success", 200
 
-@scheduler.task('interval', id='light', hours=light_hours)
+@scheduler.task('interval', id='light', hours=every_day)
 def activate_lights():
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
@@ -134,19 +135,19 @@ def activate_lights():
     print("LIGHTS OFF Finished")
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='exhaust_fan', hours=every_fan_hours)
+@scheduler.task('interval', id='exhaust_fan', hours=every_day)
 def activate_exhaust():
-    print("exhuast on")
+    print("exhuast off")
     now = datetime.datetime.now()
     # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("EXHAUST ON - START: {} ".format(now))
-    print("{} - EXHAUST TURNED ON".format(now))
-    GPIO.output(18, GPIO.LOW)
-    sleep(fan_duration_on)
-    # sleep(30)
+    app.logger.info("EXHAUST OFF - START: {} ".format(now))
+    print("{} - EXHAUST TURNED OFF".format(now))
     GPIO.output(18, GPIO.HIGH)
-    print("EXHAUST ON Finished")
-    app.logger.info("EXHAUST ON - ENDED: {}".format(now))
+    sleep(fan_duration_off)
+    # sleep(30)
+    GPIO.output(18, GPIO.LOW)
+    print("EXHAUST OFF Finished")
+    app.logger.info("EXHAUST OFF - ENDED: {}".format(now))
 
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():

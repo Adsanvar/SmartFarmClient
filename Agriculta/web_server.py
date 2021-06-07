@@ -14,7 +14,7 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=3
+every=5
 # light_hours = 24
 # every_fan_hours = 22
 every_day = 24
@@ -170,7 +170,7 @@ def activate_fan():
     print("{} - FAN Started".format(now))
     
     GPIO.output(11, GPIO.LOW)
-    sleep(duration+15)
+    sleep(duration+5)
     GPIO.output(11, GPIO.HIGH)
 
     print("Fan Finished")

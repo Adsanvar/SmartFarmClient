@@ -14,11 +14,11 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=5
+every=4
 # light_hours = 24
 # every_fan_hours = 22
 every_day = 24
-duration = 20
+duration = 15
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 fan_duration_off = 14400 #OFF

@@ -28,7 +28,7 @@ app = create_app()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
-GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
+# GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
@@ -162,18 +162,18 @@ def activate_mister():
     print("mister Finished")
     app.logger.info("MISTING - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='fan', minutes=every)
-def activate_fan():
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    # sleep(15)
-    app.logger.info("FAN - START: {} ".format(now))
-    print("{} - FAN Started".format(now))
+# @scheduler.task('interval', id='fan', minutes=every)
+# def activate_fan():
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     # sleep(15)
+#     app.logger.info("FAN - START: {} ".format(now))
+#     print("{} - FAN Started".format(now))
     
-    GPIO.output(11, GPIO.LOW)
-    sleep(duration+5)
-    GPIO.output(11, GPIO.HIGH)
+#     GPIO.output(11, GPIO.LOW)
+#     sleep(duration+5)
+#     GPIO.output(11, GPIO.HIGH)
 
-    print("Fan Finished")
-    app.logger.info("FAN - ENDED: {}".format(now))
+#     print("Fan Finished")
+#     app.logger.info("FAN - ENDED: {}".format(now))
 

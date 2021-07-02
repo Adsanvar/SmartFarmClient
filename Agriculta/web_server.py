@@ -19,6 +19,7 @@ every=4
 # every_fan_hours = 22
 every_day = 24
 duration = 15
+airstone_duration =120
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 # fan_duration_off = 14400 #OFF 4 hours
@@ -176,4 +177,19 @@ def activate_mister():
 
 #     print("Fan Finished")
 #     app.logger.info("FAN - ENDED: {}".format(now))
+
+@scheduler.task('interval', id='airstone', minutes=every)
+def activate_fan():
+    now = datetime.datetime.now()
+    # delta = now + datetime.timedelta(minutes = 1)
+    # sleep(15)
+    app.logger.info("Airstone - START: {} ".format(now))
+    print("{} - Airstone Started".format(now))
+    
+    GPIO.output(11, GPIO.LOW)
+    sleep(airstone_duration)
+    GPIO.output(11, GPIO.HIGH)
+
+    print("Airstone Finished")
+    app.logger.info("FAN - ENDED: {}".format(now))
 

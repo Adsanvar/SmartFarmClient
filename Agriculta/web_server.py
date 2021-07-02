@@ -29,7 +29,7 @@ app = create_app()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
-# GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
+GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)

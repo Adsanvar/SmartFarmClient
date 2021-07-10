@@ -23,14 +23,14 @@ duration = 12
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 # fan_duration_off = 14400 #OFF 4 hours
-fan_duration_off = 43200 #OFF 12 hours
+# fan_duration_off = 43200 #OFF 12 hours
 app = create_app()
 # vc = cv2.VideoCapture(0) 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
+# GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
 # GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
-GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
+# GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
 #mister = LED(27, initial_value=True)

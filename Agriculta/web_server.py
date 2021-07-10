@@ -14,12 +14,12 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=4
+every=3
 # light_hours = 24
 # every_fan_hours = 22
 every_day = 24
-duration = 15
-airstone_duration =120
+duration = 12
+# airstone_duration = 120
 # light_duration = 64800 #ON
 light_duration_off = 14400 #OFF
 # fan_duration_off = 14400 #OFF 4 hours
@@ -29,7 +29,7 @@ app = create_app()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(18, GPIO.OUT, initial=GPIO.LOW) # EXHAUST FAN
 GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)  # LIGHTS
-GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
+# GPIO.setup(11, GPIO.OUT, initial=GPIO.HIGH) # FAN
 GPIO.setup(13, GPIO.OUT, initial=GPIO.HIGH) # MISTER
 
 #fan = LED(17, initial_value=True) #Set's it High (since our Relays are triggered on a low architecture)
@@ -137,19 +137,19 @@ def activate_lights():
     print("LIGHTS OFF Finished")
     app.logger.info("LIGHTS OFF - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='exhaust_fan', hours=every_day)
-def activate_exhaust():
-    print("exhuast off")
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    app.logger.info("EXHAUST OFF - START: {} ".format(now))
-    print("{} - EXHAUST TURNED OFF".format(now))
-    GPIO.output(18, GPIO.HIGH)
-    sleep(fan_duration_off)
-    # sleep(30)
-    GPIO.output(18, GPIO.LOW)
-    print("EXHAUST OFF Finished")
-    app.logger.info("EXHAUST OFF - ENDED: {}".format(now))
+# @scheduler.task('interval', id='exhaust_fan', hours=every_day)
+# def activate_exhaust():
+#     print("exhuast off")
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     app.logger.info("EXHAUST OFF - START: {} ".format(now))
+#     print("{} - EXHAUST TURNED OFF".format(now))
+#     GPIO.output(18, GPIO.HIGH)
+#     sleep(fan_duration_off)
+#     # sleep(30)
+#     GPIO.output(18, GPIO.LOW)
+#     print("EXHAUST OFF Finished")
+#     app.logger.info("EXHAUST OFF - ENDED: {}".format(now))
 
 @scheduler.task('interval', id='mist', minutes=every)
 def activate_mister():
@@ -178,18 +178,18 @@ def activate_mister():
 #     print("Fan Finished")
 #     app.logger.info("FAN - ENDED: {}".format(now))
 
-@scheduler.task('interval', id='airstone', minutes=every)
-def activate_fan():
-    now = datetime.datetime.now()
-    # delta = now + datetime.timedelta(minutes = 1)
-    # sleep(15)
-    app.logger.info("Airstone - START: {} ".format(now))
-    print("{} - Airstone Started".format(now))
+# @scheduler.task('interval', id='airstone', minutes=every)
+# def activate_fan():
+#     now = datetime.datetime.now()
+#     # delta = now + datetime.timedelta(minutes = 1)
+#     # sleep(15)
+#     app.logger.info("Airstone - START: {} ".format(now))
+#     print("{} - Airstone Started".format(now))
     
-    GPIO.output(11, GPIO.LOW)
-    sleep(airstone_duration)
-    GPIO.output(11, GPIO.HIGH)
+#     GPIO.output(11, GPIO.LOW)
+#     sleep(airstone_duration)
+#     GPIO.output(11, GPIO.HIGH)
 
-    print("Airstone Finished")
-    app.logger.info("FAN - ENDED: {}".format(now))
+#     print("Airstone Finished")
+#     app.logger.info("FAN - ENDED: {}".format(now))
 

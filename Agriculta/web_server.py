@@ -14,7 +14,7 @@ import os
 home = Blueprint('home', __name__)
 scheduler = APScheduler()
 scheduler.start()
-every=3
+every=4
 # light_hours = 24
 # every_fan_hours = 22
 every_day = 24
